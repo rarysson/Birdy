@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import BirdyHeader from '@/components/BirdyHeader.vue'
+import ProjectsList from '@/components/ProjectsList.vue'
 </script>
 
 <template>
-  <BirdyHeader />
+  <ProjectsList class="mx-11 my-16" />
 </template>

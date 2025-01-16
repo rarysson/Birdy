@@ -13,7 +13,8 @@ export default {
       },
       colors: {
         birdy: {
-          100: '#b2a8ff',
+          100: '#f4f2ff',
+          200: '#b2a8ff',
           300: '#695ccd',
           500: '#1f1283',
           900: '#1c1930'
