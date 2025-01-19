@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BirdyButton from '../BirdyButton.vue'
+import BirdyButton from '../Birdy/BirdyButton.vue'
 </script>
 
 <template>

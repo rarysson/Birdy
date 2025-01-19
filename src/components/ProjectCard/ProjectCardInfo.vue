@@ -6,7 +6,7 @@ import ProjectCardDate from './ProjectCardDate.vue'
   <section class="h-[200px] p-6">
     <h1 class="text-birdy-500 text-xl font-bold">Projeto 01</h1>
 
-    <p class="text-zinc-500">
+    <p class="text-zinc-500 mt-2">
       <span class="font-bold">Cliente:</span>
       Clicksign
     </p>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import BirdyLogo from './BirdyLogo.vue'
-import ProjectSearch from './ProjectSearch.vue'
+import ProjectSearch from '../ProjectSearch.vue'
 </script>
 
 <template>

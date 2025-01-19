@@ -24,7 +24,7 @@ const props = withDefaults(
 const emit = defineEmits(['click'])
 
 const iconURL = computed(() => {
-  const url = new URL(`../assets/icons/${props.icon}.svg`, import.meta.url)
+  const url = new URL(`../../assets/icons/${props.icon}.svg`, import.meta.url)
 
   return url.href
 })
@@ -37,7 +37,7 @@ const iconURL = computed(() => {
       'text-white bg-birdy-300': props.type === 'primary',
       'text-birdy-300 bg-white border-birdy-300': props.type === 'secondary',
       'min-w-8 h-8': props.size === 'xs',
-      'w-[184px] h-10': props.size === 'sm',
+      'w-[184px] h-10 gap-2': props.size === 'sm',
       'w-[230px] h-[50px]': props.size === 'md',
       'w-full': props.size === 'full',
     }"
