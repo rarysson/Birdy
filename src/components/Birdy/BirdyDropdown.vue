@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { onClickOutside } from '@vueuse/core'
 
 const dropdownVisible = ref(false)
+const dropdownHTMLRef = ref(null)
+
+onClickOutside(dropdownHTMLRef, () => (dropdownVisible.value = false))
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative" ref="dropdownHTMLRef">
     <div
       class="w-[296px] h-10 p-1 pl-4 flex justify-between items-center bg-white rounded-lg border"
       :class="{
