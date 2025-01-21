@@ -9,6 +9,11 @@ const router = createRouter({
       path: '/',
       component: BirdyHome,
     },
+    {
+      path: '/project',
+      name: 'Project',
+      component: () => import('../views/BirdyProject.vue'),
+    },
   ],
 })
 

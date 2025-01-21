@@ -9,7 +9,7 @@ const props = defineProps<{
 }>()
 
 const iconURL = computed(() => {
-  const iconName = props.icon === 'begin' ? 'calendar-day-light' : 'calendar-check-light'
+  const iconName = props.icon === 'begin' ? 'calendar-day' : 'calendar-check'
   const url = new URL(`../assets/icons/${iconName}.svg`, import.meta.url)
 
   return url.href

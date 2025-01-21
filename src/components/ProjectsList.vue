@@ -5,7 +5,7 @@ import BirdyButton from './Birdy/BirdyButton.vue'
 import BirdyToggle from './Birdy/BirdyToggle.vue'
 import BirdyDropdown from './Birdy/BirdyDropdown.vue'
 
-const viewMode = ref<'empty' | 'grid'>('grid')
+const viewMode = ref<'empty' | 'grid'>('empty')
 const projects = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 </script>
 
@@ -18,7 +18,9 @@ const projects = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 
     <p class="mt-6 text-zinc-500">Clique no botão abaixo para criar o primeiro e gerenciá-lo.</p>
 
-    <BirdyButton class="mt-8" icon="plus-circle">Novo projeto</BirdyButton>
+    <RouterLink to="/project">
+      <BirdyButton class="mt-8" icon="plus-circle">Novo projeto</BirdyButton>
+    </RouterLink>
   </main>
   <main v-else>
     <div class="mb-6 flex justify-between items-center">
@@ -32,7 +34,9 @@ const projects = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
 
         <BirdyDropdown>Ordem alfabetica</BirdyDropdown>
 
-        <BirdyButton icon="plus-circle" size="sm">Novo projeto</BirdyButton>
+        <RouterLink to="/project">
+          <BirdyButton icon="plus-circle" size="sm">Novo projeto</BirdyButton>
+        </RouterLink>
       </div>
     </div>
 
