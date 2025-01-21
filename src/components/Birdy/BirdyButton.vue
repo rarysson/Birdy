@@ -40,7 +40,7 @@ const iconURL = computed(() => {
   <button
     class="rounded-full flex gap-4 items-center justify-center"
     :class="{
-      'text-white bg-birdy-300': props.type === 'primary',
+      'text-white bg-birdy-300': props.type === 'primary' && !props.disabled,
       'text-white bg-birdy-200': props.type === 'primary' && props.disabled,
       'text-birdy-300 bg-white border border-birdy-300': props.type === 'secondary',
       'min-w-8 h-8': props.size === 'xs',
