@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import BirdyHeader from '@/components/Birdy/BirdyHeader.vue'
+import { useProjectsStore } from './stores/projects'
+
+const projectsStore = useProjectsStore()
+
+projectsStore.fillProjects()
 </script>
 
 <template>

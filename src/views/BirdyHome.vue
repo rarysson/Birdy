@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import ProjectCard from '../components/ProjectCard/ProjectCard.vue'
 import BirdyButton from '../components/Birdy/BirdyButton.vue'
 import BirdyToggle from '../components/Birdy/BirdyToggle.vue'
 import BirdyDropdown from '../components/Birdy/BirdyDropdown.vue'
+import { useProjectsStore } from '@/stores/projects'
+
+const projectsStore = useProjectsStore()
 
 const viewMode = ref<'empty' | 'grid'>('empty')
-const projects = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+
+watchEffect(() => {
+  viewMode.value = !projectsStore.projects.length ? 'empty' : 'grid'
+})
 </script>
 
 <template>
@@ -26,7 +32,7 @@ const projects = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
     <div class="mb-6 flex justify-between items-center">
       <p class="text-birdy-300">
         <span class="font-semibold text-2xl text-birdy-500">Projetos</span>
-        ({{ projects.length }})
+        ({{ projectsStore.projects.length }})
       </p>
 
       <div class="flex gap-8">
@@ -41,7 +47,7 @@ const projects = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
     </div>
 
     <div class="grid grid-cols-[repeat(auto-fit,minmax(346px,1fr))] gap-8">
-      <ProjectCard v-for="p in projects" :key="p" />
+      <ProjectCard v-for="project in projectsStore.projects" :key="project.id" />
     </div>
   </main>
 </template>
