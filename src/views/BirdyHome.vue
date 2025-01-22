@@ -46,8 +46,8 @@ watchEffect(() => {
       </div>
     </div>
 
-    <div class="grid grid-cols-[repeat(auto-fit,minmax(346px,1fr))] gap-8">
-      <ProjectCard v-for="project in projectsStore.projects" :key="project.id" />
+    <div class="grid grid-cols-[repeat(auto-fill,minmax(346px,1fr))] gap-8">
+      <ProjectCard v-for="project in projectsStore.projects" :key="project.id" :project="project" />
     </div>
   </main>
 </template>

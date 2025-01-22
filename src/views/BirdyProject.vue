@@ -5,10 +5,12 @@ import { isAfter, isValid } from 'date-fns'
 import { watch, reactive, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { db } from '../db'
+import { useProjectsStore } from '../stores/projects'
 
 const FIELD_REQUIRED = 'Campo obrigatório'
 
 const router = useRouter()
+const projectsStore = useProjectsStore()
 
 const project = reactive({
   name: '',
@@ -46,8 +48,10 @@ async function handleSubmit() {
         beginDate: project.beginDate,
         endDate: project.endDate,
         file: project.file,
+        favorite: false,
       })
 
+      projectsStore.fillProjects()
       router.push('/')
     } catch (error) {
       console.error(`Failed to add ${project.name}: ${error}`)

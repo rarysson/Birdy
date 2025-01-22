@@ -21,7 +21,7 @@ function handleDragover(event: DragEvent) {
 
 function handleDrop(event: DragEvent) {
   if (event.dataTransfer) {
-    file.value = URL.createObjectURL(event.dataTransfer.files[0])
+    readFile(event.dataTransfer.files[0])
   }
 }
 
@@ -29,13 +29,24 @@ function uploadFile(event: Event) {
   const target = event.target as HTMLInputElement
 
   if (target.files) {
-    file.value = URL.createObjectURL(target.files[0])
+    readFile(target.files[0])
   }
 }
 
 function handleDeleteFile() {
-  URL.revokeObjectURL(file.value)
   file.value = ''
+}
+
+function readFile(f: File) {
+  const reader = new FileReader()
+
+  reader.onload = (event) => {
+    if (event.target && event.target.result) {
+      file.value = event.target.result as string
+    }
+  }
+
+  reader.readAsDataURL(f)
 }
 
 watch(file, (value) => {

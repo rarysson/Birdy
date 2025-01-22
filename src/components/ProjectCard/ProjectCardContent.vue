@@ -1,21 +1,44 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
-
 import BirdyButton from '../Birdy/BirdyButton.vue'
+import { db, type Project } from '@/db'
+import { useProjectsStore } from '@/stores/projects'
+
+const props = defineProps<{
+  project: Project
+}>()
+
+const projectsStore = useProjectsStore()
 
 const optionsVisible = ref(false)
 const optionsHTMLRef = ref(null)
+
+async function handleFavorite() {
+  const favoriteValue = !props.project.favorite
+
+  await db.projects.update(props.project.id, { favorite: favoriteValue })
+  projectsStore.updateProject(props.project.id, {
+    ...props.project,
+    favorite: favoriteValue,
+  })
+}
 
 onClickOutside(optionsHTMLRef, () => (optionsVisible.value = false))
 </script>
 
 <template>
   <div class="h-[232px] relative">
-    <img src="@/assets/images/project.png" alt="background" />
+    <img v-if="props.project.file" class="h-full" :src="props.project.file" alt="background" />
+    <img v-else src="@/assets/images/project.png" class="h-full" alt="background" />
 
     <div class="absolute bottom-4 right-4 flex items-center gap-4">
-      <BirdyButton class="w-[90%] h-[90%]" icon="star" type="transparent" size="xs" />
+      <BirdyButton
+        :icon="props.project.favorite ? 'star-full' : 'star'"
+        type="transparent"
+        size="xs"
+        @click="handleFavorite"
+      />
 
       <div class="relative" ref="optionsHTMLRef">
         <BirdyButton

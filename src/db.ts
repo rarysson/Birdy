@@ -7,6 +7,7 @@ interface Project {
   beginDate: string
   endDate: string
   file?: string
+  favorite: boolean
 }
 
 const db = new Dexie('ProjectsDatabase') as Dexie & {
@@ -14,7 +15,7 @@ const db = new Dexie('ProjectsDatabase') as Dexie & {
 }
 
 db.version(1).stores({
-  projects: '++id, name, client, beginDate, endDate, file',
+  projects: '++id, name, client, beginDate, endDate, file, favorite',
 })
 
 export type { Project }

@@ -9,5 +9,13 @@ export const useProjectsStore = defineStore('projects', () => {
     projects.value = await db.projects.toArray()
   }
 
-  return { projects, fillProjects }
+  function updateProject(id: number, payload: Project) {
+    const index = projects.value.findIndex((p) => p.id === id)
+
+    if (index != -1) {
+      projects.value[index] = payload
+    }
+  }
+
+  return { projects, fillProjects, updateProject }
 })
