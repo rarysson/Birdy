@@ -9,6 +9,20 @@ export default mergeConfig(
       environment: 'jsdom',
       exclude: [...configDefaults.exclude, 'e2e/**'],
       root: fileURLToPath(new URL('./', import.meta.url)),
+      coverage: {
+        provider: 'istanbul',
+        exclude: [
+          // files
+          '*.config.*',
+          'env.*',
+          '**/main.ts',
+          '**/db.ts',
+          '**/*{.,-}{test,spec,bench,benchmark}?(-d).?(c|m)[jt]s?(x)',
+          // folders
+          '**/router/**',
+          'cypress/**',
+        ],
+      },
     },
   }),
 )

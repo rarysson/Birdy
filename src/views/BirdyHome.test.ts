@@ -11,6 +11,7 @@ describe('BirdyHome', () => {
 
   it('renders properly', () => {
     const component = mount(BirdyHome)
+
     expect(component).toBeTruthy()
   })
 })
