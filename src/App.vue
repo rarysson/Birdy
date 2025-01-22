@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import BirdyHeader from '@/components/Birdy/BirdyHeader.vue'
 import { useProjects } from './stores/projects'
+import { useSearches } from './stores/searches'
 
 const projects = useProjects()
+const searches = useSearches()
 
 projects.fillProjects()
+searches.fillProjects()
 </script>
 
 <template>

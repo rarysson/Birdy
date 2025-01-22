@@ -14,6 +14,11 @@ const router = createRouter({
       name: 'Project',
       component: () => import('../views/BirdyProject.vue'),
     },
+    {
+      path: '/search',
+      name: 'Search',
+      component: () => import('../views/BirdySearch.vue'),
+    },
   ],
 })
 
