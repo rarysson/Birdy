@@ -20,10 +20,12 @@ const props = withDefaults(
     type?: 'primary' | 'secondary' | 'transparent'
     size?: 'xs' | 'sm' | 'md' | 'full'
     disabled?: boolean
+    kind?: 'button' | 'submit'
   }>(),
   {
     type: 'primary',
     size: 'md',
+    kind: 'button',
   },
 )
 
@@ -38,6 +40,7 @@ const iconURL = computed(() => {
 
 <template>
   <button
+    :type="props.kind"
     class="rounded-full flex gap-4 items-center justify-center"
     :class="{
       'text-white bg-birdy-300': props.type === 'primary' && !props.disabled,

@@ -22,14 +22,14 @@ const componentID = useId()
     <div class="flex gap-2 items-center">
       <label
         class="text-birdy-300 text-lg"
-        :class="{ 'text-danger-900': !!props.erros }"
+        :class="{ 'text-danger-900': !!props.erros && props.erros.length }"
         :for="componentID"
         >{{ props.label }}</label
       >
       <p
         v-if="props.required"
         class="text-sm text-zinc-500"
-        :class="{ 'text-danger-500': !!props.erros }"
+        :class="{ 'text-danger-500': !!props.erros && props.erros.length }"
       >
         (Obrigatório)
       </p>
@@ -38,12 +38,12 @@ const componentID = useId()
     <BirdyInputText
       v-if="props.type === 'text'"
       :id="componentID"
-      :danger="!!props.erros"
+      :danger="!!props.erros && !!props.erros.length"
       v-model="model"
     />
     <BirdyInputDate
       v-if="props.type === 'date' && props.icon"
-      :danger="!!props.erros"
+      :danger="!!props.erros && !!props.erros.length"
       :id="componentID"
       :icon="props.icon"
       v-model="model"

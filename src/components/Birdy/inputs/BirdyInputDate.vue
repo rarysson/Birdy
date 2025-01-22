@@ -42,7 +42,6 @@ function handleTextInput(event: Event) {
 }
 
 watch(input, (value) => {
-  console.log(value, value.length === 10 || !value.length)
   if (value.length === 10 || !value.length) {
     emit('update:modelValue', value)
   }
