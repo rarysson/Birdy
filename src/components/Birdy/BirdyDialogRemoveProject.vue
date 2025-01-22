@@ -1,5 +1,22 @@
 <script setup lang="ts">
+import type { Project } from '@/db'
 import BirdyButton from './BirdyButton.vue'
+import { useProjectsStore } from '@/stores/projects'
+
+const props = defineProps<{
+  project: Project
+}>()
+
+const emit = defineEmits<{
+  close: []
+}>()
+
+const projectsStore = useProjectsStore()
+
+async function removeProject() {
+  await projectsStore.removeProject(props.project.id)
+  emit('close')
+}
 </script>
 
 <template>
@@ -18,11 +35,11 @@ import BirdyButton from './BirdyButton.vue'
 
         <p class="text-zinc-500">Essa ação removerá definitivamente o projeto:</p>
 
-        <p class="text-2xl mt-4 font-medium">Nome do projeto</p>
+        <p class="text-2xl mt-4 font-medium">{{ props.project.name }}</p>
 
         <div class="flex gap-8 justify-center mt-8">
-          <BirdyButton type="secondary">Cancelar</BirdyButton>
-          <BirdyButton>Confirmar</BirdyButton>
+          <BirdyButton type="secondary" @click="emit('close')">Cancelar</BirdyButton>
+          <BirdyButton @click="removeProject">Confirmar</BirdyButton>
         </div>
       </div>
     </div>

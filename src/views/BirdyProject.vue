@@ -4,7 +4,6 @@ import BirdyInput from '@/components/Birdy/BirdyInput.vue'
 import { isAfter, isValid } from 'date-fns'
 import { watch, reactive, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { db } from '../db'
 import { useProjectsStore } from '../stores/projects'
 
 const FIELD_REQUIRED = 'Campo obrigatório'
@@ -41,21 +40,8 @@ const submitDisabled = computed(
 
 async function handleSubmit() {
   if (!submitDisabled.value) {
-    try {
-      await db.projects.add({
-        name: project.name.trim(),
-        client: project.client.trim(),
-        beginDate: project.beginDate,
-        endDate: project.endDate,
-        file: project.file,
-        favorite: false,
-      })
-
-      projectsStore.fillProjects()
-      router.push('/')
-    } catch (error) {
-      console.error(`Failed to add ${project.name}: ${error}`)
-    }
+    await projectsStore.addProject(project)
+    router.push('/')
   }
 }
 

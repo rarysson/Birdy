@@ -2,8 +2,9 @@
 import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import BirdyButton from '../Birdy/BirdyButton.vue'
-import { db, type Project } from '@/db'
+import { type Project } from '@/db'
 import { useProjectsStore } from '@/stores/projects'
+import BirdyDialogRemoveProject from '../Birdy/BirdyDialogRemoveProject.vue'
 
 const props = defineProps<{
   project: Project
@@ -13,15 +14,20 @@ const projectsStore = useProjectsStore()
 
 const optionsVisible = ref(false)
 const optionsHTMLRef = ref(null)
+const dialogVisible = ref(false)
 
-async function handleFavorite() {
+function handleFavorite() {
   const favoriteValue = !props.project.favorite
 
-  await db.projects.update(props.project.id, { favorite: favoriteValue })
   projectsStore.updateProject(props.project.id, {
     ...props.project,
     favorite: favoriteValue,
   })
+}
+
+function openRemoveProjectDialog() {
+  optionsVisible.value = false
+  dialogVisible.value = true
 }
 
 onClickOutside(optionsHTMLRef, () => (optionsVisible.value = false))
@@ -29,7 +35,12 @@ onClickOutside(optionsHTMLRef, () => (optionsVisible.value = false))
 
 <template>
   <div class="h-[232px] relative">
-    <img v-if="props.project.file" class="h-full" :src="props.project.file" alt="background" />
+    <img
+      v-if="props.project.file"
+      class="w-full h-full object-cover"
+      :src="props.project.file"
+      alt="background"
+    />
     <img v-else src="@/assets/images/project.png" class="h-full" alt="background" />
 
     <div class="absolute bottom-4 right-4 flex items-center gap-4">
@@ -63,7 +74,7 @@ onClickOutside(optionsHTMLRef, () => (optionsVisible.value = false))
           </li>
           <hr />
           <li>
-            <button class="px-3.5 py-5 flex text-birdy-300 gap-3">
+            <button class="px-3.5 py-5 flex text-birdy-300 gap-3" @click="openRemoveProjectDialog">
               <img src="@/assets/icons/trash.svg" alt="trash" />
               Remover
             </button>
@@ -72,4 +83,10 @@ onClickOutside(optionsHTMLRef, () => (optionsVisible.value = false))
       </div>
     </div>
   </div>
+
+  <BirdyDialogRemoveProject
+    v-if="dialogVisible"
+    :project="props.project"
+    @close="dialogVisible = false"
+  />
 </template>
