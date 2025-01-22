@@ -2,7 +2,7 @@
 import BirdyButton from '@/components/Birdy/BirdyButton.vue'
 import BirdyInput from '@/components/Birdy/BirdyInput.vue'
 import { isAfter, isValid } from 'date-fns'
-import { watch, reactive, computed } from 'vue'
+import { watch, reactive, computed, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import { useProjectsStore } from '../stores/projects'
 import type { Project } from '@/db'
@@ -94,23 +94,20 @@ watch(
   },
 )
 
-watch(
-  () => project.endDate,
-  (value) => {
-    erros.endDate = []
+watchEffect(() => {
+  erros.endDate = []
 
-    if (!value) {
-      erros.endDate.push(FIELD_REQUIRED)
-    } else if (!isValid(new Date(value))) {
-      erros.endDate.push('Selecione uma data válida')
-    } else if (
-      isValid(new Date(project.beginDate)) &&
-      isAfter(new Date(project.beginDate), new Date(project.endDate))
-    ) {
-      erros.endDate.push('A data final não pode ser anterior à data inicial')
-    }
-  },
-)
+  if (!project.endDate) {
+    erros.endDate.push(FIELD_REQUIRED)
+  } else if (!isValid(new Date(project.endDate))) {
+    erros.endDate.push('Selecione uma data válida')
+  } else if (
+    isValid(new Date(project.beginDate)) &&
+    isAfter(new Date(project.beginDate), new Date(project.endDate))
+  ) {
+    erros.endDate.push('A data final não pode ser anterior à data inicial')
+  }
+})
 </script>
 
 <template>

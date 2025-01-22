@@ -38,7 +38,7 @@ watchEffect(() => {
       <div class="flex gap-8">
         <BirdyToggle>Apenas Favoritos</BirdyToggle>
 
-        <BirdyDropdown>Ordem alfabetica</BirdyDropdown>
+        <BirdyDropdown />
 
         <RouterLink to="/project">
           <BirdyButton icon="plus-circle" size="sm">Novo projeto</BirdyButton>

@@ -1,12 +1,35 @@
 import { db, type Project } from '@/db'
+import { compareAsc } from 'date-fns'
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+
+export type ProjectSort = 'abc' | 'recent' | 'closest'
+
+const _projects = ref<Project[]>([])
 
 export const useProjectsStore = defineStore('projects', () => {
-  const projects = ref<Project[]>([])
+  const sortOrder = ref<ProjectSort>('abc')
+
+  const projects = computed(() => {
+    if (sortOrder.value === 'abc') {
+      return _projects.value.sort((a, b) => a.name.localeCompare(b.name))
+    }
+
+    if (sortOrder.value === 'recent') {
+      return _projects.value.sort((a, b) =>
+        compareAsc(new Date(a.beginDate), new Date(b.beginDate)),
+      )
+    }
+
+    if (sortOrder.value === 'closest') {
+      return _projects.value.sort((a, b) => compareAsc(new Date(a.endDate), new Date(b.endDate)))
+    }
+
+    return _projects.value
+  })
 
   async function fillProjects() {
-    projects.value = await db.projects.toArray()
+    _projects.value = await db.projects.toArray()
   }
 
   async function addProject(payload: Omit<Project, 'id' | 'favorite'>) {
@@ -48,7 +71,7 @@ export const useProjectsStore = defineStore('projects', () => {
     }
   }
 
-  return { projects, fillProjects, addProject, updateProject, removeProject }
+  return { sortOrder, projects, fillProjects, addProject, updateProject, removeProject }
 })
 
 if (import.meta.hot) {
