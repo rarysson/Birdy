@@ -5,12 +5,14 @@ import BirdyButton from '../Birdy/BirdyButton.vue'
 import { type Project } from '@/db'
 import { useProjectsStore } from '@/stores/projects'
 import BirdyDialogRemoveProject from '../Birdy/BirdyDialogRemoveProject.vue'
+import { useRouter } from 'vue-router'
 
 const props = defineProps<{
   project: Project
 }>()
 
 const projectsStore = useProjectsStore()
+const router = useRouter()
 
 const optionsVisible = ref(false)
 const optionsHTMLRef = ref(null)
@@ -28,6 +30,10 @@ function handleFavorite() {
 function openRemoveProjectDialog() {
   optionsVisible.value = false
   dialogVisible.value = true
+}
+
+function handleEditProject() {
+  router.push({ name: 'Project', state: { project: JSON.stringify(props.project) } })
 }
 
 onClickOutside(optionsHTMLRef, () => (optionsVisible.value = false))
@@ -67,7 +73,7 @@ onClickOutside(optionsHTMLRef, () => (optionsVisible.value = false))
           }"
         >
           <li>
-            <button class="px-3.5 py-5 flex text-birdy-300 gap-3">
+            <button class="px-3.5 py-5 flex text-birdy-300 gap-3" @click="handleEditProject">
               <img src="@/assets/icons/edit.svg" alt="edit" />
               Editar
             </button>

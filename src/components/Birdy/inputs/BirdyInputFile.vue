@@ -11,7 +11,7 @@ const emit = defineEmits<{
   'update:modelValue': [value: string]
 }>()
 
-const file = ref('')
+const file = ref(props.modelValue)
 
 function handleDragover(event: DragEvent) {
   if (event.dataTransfer) {

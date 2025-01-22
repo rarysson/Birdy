@@ -12,7 +12,7 @@ const emit = defineEmits<{
   'update:modelValue': [value: string]
 }>()
 
-const input = ref('')
+const input = ref(props.modelValue)
 
 const iconURL = computed(() => {
   const url = new URL(`../../../assets/icons/${props.icon}.svg`, import.meta.url)

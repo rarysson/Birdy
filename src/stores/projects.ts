@@ -30,11 +30,11 @@ export const useProjectsStore = defineStore('projects', () => {
     }
   }
 
-  async function updateProject(id: number, payload: Project) {
+  async function updateProject(id: number, payload: Omit<Project, 'id'>) {
     const index = projects.value.findIndex((p) => p.id === id)
 
     if (index != -1) {
-      projects.value[index] = payload
+      projects.value[index] = { ...payload, id }
       await db.projects.update(id, payload)
     }
   }

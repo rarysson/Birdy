@@ -5,18 +5,22 @@ import { isAfter, isValid } from 'date-fns'
 import { watch, reactive, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useProjectsStore } from '../stores/projects'
+import type { Project } from '@/db'
 
 const FIELD_REQUIRED = 'Campo obrigatório'
+
+const projectToEdit = JSON.parse(history.state.project ?? '{}')
+const isEditMode = !!projectToEdit.id
 
 const router = useRouter()
 const projectsStore = useProjectsStore()
 
-const project = reactive({
-  name: '',
-  client: '',
-  beginDate: '',
-  endDate: '',
-  file: '',
+const project = reactive<Omit<Project, 'id' | 'favorite'>>({
+  name: projectToEdit.name ?? '',
+  client: projectToEdit.client ?? '',
+  beginDate: projectToEdit.beginDate ?? '',
+  endDate: projectToEdit.endDate ?? '',
+  file: projectToEdit.file ?? '',
 })
 
 const erros = reactive({
@@ -40,7 +44,15 @@ const submitDisabled = computed(
 
 async function handleSubmit() {
   if (!submitDisabled.value) {
-    await projectsStore.addProject(project)
+    if (!isEditMode) {
+      await projectsStore.addProject(project)
+    } else {
+      await projectsStore.updateProject(projectToEdit.id, {
+        ...project,
+        favorite: projectToEdit.favorite,
+      })
+    }
+
     router.push('/')
   }
 }
@@ -109,7 +121,9 @@ watch(
       </BirdyButton>
     </RouterLink>
 
-    <h1 class="font-semibold text-birdy-500 text-2xl mt-2">Novo projeto</h1>
+    <h1 class="font-semibold text-birdy-500 text-2xl mt-2">
+      {{ isEditMode ? 'Editar projeto' : 'Novo projeto' }}
+    </h1>
 
     <div class="flex justify-center border border-[#dcdcdc] rounded-lg py-14 px-8 mt-8">
       <form class="w-full max-w-[700px] flex flex-col gap-8" @submit.prevent="handleSubmit">
