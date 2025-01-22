@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import BirdyButton from '../Birdy/BirdyButton.vue'
 import { type Project } from '@/db'
-import { useProjectsStore } from '@/stores/projects'
+import { useProjects } from '@/stores/projects'
 import BirdyDialogRemoveProject from '../Birdy/BirdyDialogRemoveProject.vue'
 import { useRouter } from 'vue-router'
 
@@ -11,7 +11,7 @@ const props = defineProps<{
   project: Project
 }>()
 
-const projectsStore = useProjectsStore()
+const projects = useProjects()
 const router = useRouter()
 
 const optionsVisible = ref(false)
@@ -21,7 +21,7 @@ const dialogVisible = ref(false)
 function handleFavorite() {
   const favoriteValue = !props.project.favorite
 
-  projectsStore.updateProject(props.project.id, {
+  projects.updateProject(props.project.id, {
     ...props.project,
     favorite: favoriteValue,
   })

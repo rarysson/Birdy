@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
-import { useProjectsStore, type ProjectSort } from '@/stores/projects'
+import { useProjects, type ProjectSort } from '@/stores/projects'
 
 type Option = {
   sort: ProjectSort
   text: string
 }
 
-const projectsStore = useProjectsStore()
+const projects = useProjects()
 
 const dropdownVisible = ref(false)
 const dropdownHTMLRef = ref(null)
@@ -19,11 +19,11 @@ const sortOptions = [
   { sort: 'closest', text: 'Prazo mais próximo' },
 ] as Option[]
 
-const currentOption = ref<Option>(sortOptions.find((op) => op.sort === projectsStore.sortOrder)!)
+const currentOption = ref<Option>(sortOptions.find((op) => op.sort === projects.sortOrder)!)
 
 function changeOption(index: number) {
   currentOption.value = sortOptions[index]
-  projectsStore.sortOrder = currentOption.value.sort
+  projects.sortOrder = currentOption.value.sort
   dropdownVisible.value = false
 }
 
@@ -61,11 +61,6 @@ onClickOutside(dropdownHTMLRef, () => (dropdownVisible.value = false))
         </button>
         <hr v-if="i !== sortOptions.length - 1" />
       </template>
-      <!-- <button class="px-4 py-[18px] bg-white w-full text-left" @click="changeOption(0)">{{ sortOptions[0].text }}</button>
-      <hr />
-      <button class="px-4 py-[18px] bg-white w-full text-left">{{ sortOptions[1].text }}</button>
-      <hr />
-      <button class="px-4 py-[18px] bg-white w-full text-left">{{ sortOptions[2].text }}</button> -->
     </div>
   </div>
 </template>

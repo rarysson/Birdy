@@ -4,7 +4,7 @@ import BirdyInput from '@/components/Birdy/BirdyInput.vue'
 import { isAfter, isValid } from 'date-fns'
 import { watch, reactive, computed, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
-import { useProjectsStore } from '../stores/projects'
+import { useProjects } from '../stores/projects'
 import type { Project } from '@/db'
 
 const FIELD_REQUIRED = 'Campo obrigatório'
@@ -13,7 +13,7 @@ const projectToEdit = JSON.parse(history.state.project ?? '{}')
 const isEditMode = !!projectToEdit.id
 
 const router = useRouter()
-const projectsStore = useProjectsStore()
+const projects = useProjects()
 
 const project = reactive<Omit<Project, 'id' | 'favorite'>>({
   name: projectToEdit.name ?? '',
@@ -45,9 +45,9 @@ const submitDisabled = computed(
 async function handleSubmit() {
   if (!submitDisabled.value) {
     if (!isEditMode) {
-      await projectsStore.addProject(project)
+      await projects.addProject(project)
     } else {
-      await projectsStore.updateProject(projectToEdit.id, {
+      await projects.updateProject(projectToEdit.id, {
         ...project,
         favorite: projectToEdit.favorite,
       })

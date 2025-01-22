@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Project } from '@/db'
 import BirdyButton from './BirdyButton.vue'
-import { useProjectsStore } from '@/stores/projects'
+import { useProjects } from '@/stores/projects'
 
 const props = defineProps<{
   project: Project
@@ -11,10 +11,10 @@ const emit = defineEmits<{
   close: []
 }>()
 
-const projectsStore = useProjectsStore()
+const projects = useProjects()
 
 async function removeProject() {
-  await projectsStore.removeProject(props.project.id)
+  await projects.removeProject(props.project.id)
   emit('close')
 }
 </script>

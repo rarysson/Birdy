@@ -7,25 +7,26 @@ export type ProjectSort = 'abc' | 'recent' | 'closest'
 
 const _projects = ref<Project[]>([])
 
-export const useProjectsStore = defineStore('projects', () => {
+export const useProjects = defineStore('projects', () => {
   const sortOrder = ref<ProjectSort>('abc')
+  const onlyFavorites = ref(false)
 
   const projects = computed(() => {
+    const p = [..._projects.value]
+
     if (sortOrder.value === 'abc') {
-      return _projects.value.sort((a, b) => a.name.localeCompare(b.name))
+      p.sort((a, b) => a.name.localeCompare(b.name))
     }
 
     if (sortOrder.value === 'recent') {
-      return _projects.value.sort((a, b) =>
-        compareAsc(new Date(a.beginDate), new Date(b.beginDate)),
-      )
+      p.sort((a, b) => compareAsc(new Date(a.beginDate), new Date(b.beginDate)))
     }
 
     if (sortOrder.value === 'closest') {
-      return _projects.value.sort((a, b) => compareAsc(new Date(a.endDate), new Date(b.endDate)))
+      p.sort((a, b) => compareAsc(new Date(a.endDate), new Date(b.endDate)))
     }
 
-    return _projects.value
+    return onlyFavorites.value ? p.filter((el) => el.favorite) : p
   })
 
   async function fillProjects() {
@@ -71,9 +72,17 @@ export const useProjectsStore = defineStore('projects', () => {
     }
   }
 
-  return { sortOrder, projects, fillProjects, addProject, updateProject, removeProject }
+  return {
+    sortOrder,
+    onlyFavorites,
+    projects,
+    fillProjects,
+    addProject,
+    updateProject,
+    removeProject,
+  }
 })
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useProjectsStore, import.meta.hot))
+  import.meta.hot.accept(acceptHMRUpdate(useProjects, import.meta.hot))
 }
