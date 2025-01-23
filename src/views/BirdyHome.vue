@@ -18,29 +18,33 @@ watchEffect(() => {
 <template>
   <main
     v-if="viewMode === 'empty'"
-    class="bg-white flex flex-col justify-center items-center rounded-md mx-11 my-16"
+    class="bg-white flex flex-col justify-center items-center rounded-md mx-11 my-16 px-4"
   >
     <p class="text-birdy-500 text-2xl font-semibold">Nenhum projeto</p>
 
-    <p class="mt-6 text-zinc-500">Clique no botão abaixo para criar o primeiro e gerenciá-lo.</p>
+    <p class="mt-6 text-zinc-500 text-center">
+      Clique no botão abaixo para criar o primeiro e gerenciá-lo.
+    </p>
 
     <RouterLink to="/project">
       <BirdyButton class="mt-8" icon="plus-circle">Novo projeto</BirdyButton>
     </RouterLink>
   </main>
-  <main v-else class="mx-11 my-16">
-    <div class="mb-6 flex justify-between items-center">
+  <main v-else class="mx-4 md:mx-11 my-8 md:my-16">
+    <div
+      class="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-0"
+    >
       <p class="text-birdy-300">
         <span class="font-semibold text-2xl text-birdy-500">Projetos</span>
         ({{ projects.projects.length }})
       </p>
 
-      <div class="flex gap-8">
+      <div class="flex flex-col md:flex-row gap-4 md:gap-8">
         <BirdyToggle v-model="projects.onlyFavorites">Apenas Favoritos</BirdyToggle>
 
         <BirdyDropdown />
 
-        <RouterLink to="/project">
+        <RouterLink class="w-fit" to="/project">
           <BirdyButton icon="plus-circle" size="sm">Novo projeto</BirdyButton>
         </RouterLink>
       </div>

@@ -24,9 +24,9 @@ onClickOutside(latestSearchesHTMLRef, () => (latestSearchesVisible.value = false
 <template>
   <header
     v-if="route.name !== 'Search'"
-    class="bg-birdy-900 flex text-center justify-between items-center px-16 py-2"
+    class="bg-birdy-900 flex text-center justify-between items-center px-8 md:px-16 py-2 gap-6"
   >
-    <div><!-- empty space --></div>
+    <div class="hidden md:block"><!-- empty space --></div>
 
     <BirdyLogo />
 

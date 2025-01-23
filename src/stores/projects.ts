@@ -44,7 +44,7 @@ export const useProjects = defineStore('projects', () => {
         favorite: false,
       })
 
-      projects.value.push({
+      _projects.value.push({
         ...payload,
         id,
         favorite: false,
@@ -55,19 +55,19 @@ export const useProjects = defineStore('projects', () => {
   }
 
   async function updateProject(id: number, payload: Omit<Project, 'id'>) {
-    const index = projects.value.findIndex((p) => p.id === id)
+    const index = _projects.value.findIndex((p) => p.id === id)
 
     if (index != -1) {
-      projects.value[index] = { ...payload, id }
+      _projects.value[index] = { ...payload, id }
       await db.projects.update(id, payload)
     }
   }
 
   async function removeProject(id: number) {
-    const index = projects.value.findIndex((p) => p.id === id)
+    const index = _projects.value.findIndex((p) => p.id === id)
 
     if (index != -1) {
-      projects.value.splice(index, 1)
+      _projects.value.splice(index, 1)
       await db.projects.delete(id)
     }
   }

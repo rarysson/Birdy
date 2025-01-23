@@ -111,8 +111,8 @@ watchEffect(() => {
 </script>
 
 <template>
-  <main class="px-10 py-16">
-    <RouterLink to="/">
+  <main class="px-4 md:px-10 py-8 md:py-16">
+    <RouterLink class="w-fit" to="/">
       <BirdyButton class="text-birdy-300 w-fit h-fit gap-2" icon="arrow-left" type="transparent">
         Voltar
       </BirdyButton>
@@ -122,8 +122,13 @@ watchEffect(() => {
       {{ isEditMode ? 'Editar projeto' : 'Novo projeto' }}
     </h1>
 
-    <div class="flex justify-center border border-[#dcdcdc] rounded-lg py-14 px-8 mt-8">
-      <form class="w-full max-w-[700px] flex flex-col gap-8" @submit.prevent="handleSubmit">
+    <div
+      class="flex justify-center border border-[#dcdcdc] rounded-lg px-4 md:px-8 py-4 md:py-14 mt-8"
+    >
+      <form
+        class="w-full max-w-[700px] flex flex-col gap-4 md:gap-8"
+        @submit.prevent="handleSubmit"
+      >
         <BirdyInput
           type="text"
           label="Nome do projeto"
@@ -140,7 +145,7 @@ watchEffect(() => {
           :erros="erros.client"
         />
 
-        <div class="flex gap-10">
+        <div class="flex flex-col md:flex-row gap-2 md:gap-10">
           <BirdyInput
             class="w-full"
             type="date"

@@ -12,7 +12,9 @@ Birdy é um gerenciador de projetos.
 
 ## Rodando o app
 
-Para usar o app, basta clonar localmente o repositório, ir na pasta clonada e executar:
+Para usar o app sem instalar nada, basta acessar aqui: https://rarysson.github.io/Birdy/
+
+Para usar o app localmente, basta clonar o repositório, ir na pasta clonada e executar:
 
 ```
 npm install

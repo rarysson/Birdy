@@ -7,9 +7,9 @@ const searches = useSearches()
 </script>
 
 <template>
-  <main class="px-10 py-16">
-    <RouterLink to="/">
-      <BirdyButton class="text-birdy-300 w-fit h-fit gap-2" icon="arrow-left" type="transparent">
+  <main class="px-4 md:px-10 py-4 md:py-16">
+    <RouterLink class="w-fit" to="/">
+      <BirdyButton class="text-birdy-300 gap-2" icon="arrow-left" type="transparent" size="xs">
         Voltar
       </BirdyButton>
     </RouterLink>
