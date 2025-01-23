@@ -111,7 +111,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <main class="px-4 md:px-10 py-8 md:py-16">
+  <main class="px-4 lg:px-10 py-8 lg:py-16">
     <RouterLink class="w-fit" to="/">
       <BirdyButton class="text-birdy-300 w-fit h-fit gap-2" icon="arrow-left" type="transparent">
         Voltar
@@ -123,10 +123,10 @@ watchEffect(() => {
     </h1>
 
     <div
-      class="flex justify-center border border-[#dcdcdc] rounded-lg px-4 md:px-8 py-4 md:py-14 mt-8"
+      class="flex justify-center border border-[#dcdcdc] rounded-lg px-4 lg:px-8 py-4 lg:py-14 mt-8"
     >
       <form
-        class="w-full max-w-[700px] flex flex-col gap-4 md:gap-8"
+        class="w-full max-w-[700px] flex flex-col gap-4 lg:gap-8"
         @submit.prevent="handleSubmit"
       >
         <BirdyInput
@@ -145,7 +145,7 @@ watchEffect(() => {
           :erros="erros.client"
         />
 
-        <div class="flex flex-col md:flex-row gap-2 md:gap-10">
+        <div class="flex flex-col lg:flex-row gap-2 lg:gap-10">
           <BirdyInput
             class="w-full"
             type="date"

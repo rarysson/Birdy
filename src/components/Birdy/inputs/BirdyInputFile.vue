@@ -78,7 +78,7 @@ watch(file, (value) => {
       @change="uploadFile"
     />
   </template>
-  <div v-else class="w-full h-auto md:h-96 relative overflow-hidden rounded-lg">
+  <div v-else class="w-full h-auto lg:h-96 relative overflow-hidden rounded-lg">
     <img :src="file" alt="image" />
 
     <BirdyButton
